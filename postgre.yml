@@ -1,0 +1,11 @@
+- hosts: postgreserver
+  become: true
+  pre_tasks:
+    - name: Install Dependencies
+      package:
+        name: 'python-psycopg2'
+  roles:
+#    - galaxyproject.postgresql
+    - role: natefoo.postgresql_objects
+      become: true
+      become_user: postgres

@@ -1,0 +1,5 @@
+[galaxyservers]
+localhost ansible_connection=local
+
+[postgreserver]
+10.10.0.208

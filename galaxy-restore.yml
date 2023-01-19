@@ -1,0 +1,42 @@
+- hosts: galaxyservers
+  become: true
+  #vars:
+  #  slurm_roles: ['controller', 'exec']
+  pre_tasks:
+    - name: Install Dependencies
+      package:
+        name: ['python-psycopg2', 'git', 'python-virtualenv', 'make']
+  handlers:
+    - name: Restart Galaxy
+      supervisorctl:
+        name: galaxy
+        state: restarted
+  roles:
+    #- galaxyproject.repos
+    #
+    # Don't need to install postgres as it is already available in the linux VM.
+    # - galaxyproject.postgresql
+    # Just needs to set it up.
+    - role: natefoo.postgresql_objects
+      become: true
+      become_user: postgres
+    - galaxyproject.galaxy
+    - uchida.miniconda
+    - geerlingguy.pip
+    - usegalaxy-eu.supervisor
+    # We will not install a reverse web proxy for this implementation. It will be handled outside of the galaxy setup.
+    #- geerlingguy.nginx
+    #- galaxyproject.nginx
+  #post_tasks:
+    #- name: Install slurm-drmaa
+    #  package:
+    #    name: slurm-drmaa
+    
+#    - name: Fix shed_tools path in shed_tool_conf.xml
+#      replace:
+#        path: "{{ galaxy_shed_tool_conf_file }}"
+#        regexp: '^<toolbox tool_path="../shed_tools">$'
+#        replace: '<toolbox tool_path="{{ galaxy_shed_tools_dir }}">'
+#      notify:
+#        - Restart Galaxy
+

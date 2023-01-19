@@ -1,0 +1,14 @@
+- galaxyproject.repos
+- galaxyproject.galaxy
+- geerlingguy.nginx
+- natefoo.postgresql_objects
+- galaxyproject.postgresql
+- galaxyproject.proftpd
+- geerlingguy.pip
+- src: https://github.com/usegalaxy-eu/ansible-role-supervisor
+  name: usegalaxy-eu.supervisor
+- src: https://github.com/usegalaxy-eu/ansible-certbot
+  name: usegalaxy-eu.certbot
+- galaxyproject.cvmfs
+- galaxyproject.slurm
+- galaxyproject.pulsar
